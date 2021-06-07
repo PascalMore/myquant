@@ -84,6 +84,41 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/stock',
+    component: Layout,
+    redirect: '/stock/index',
+    meta: {
+      title: 'stock',
+      icon: 'stock-home'
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/stock/index'),
+        name: 'StockOverview',
+        meta: { title: 'stock-overview', icon: 'stock-overview', noCache: true }
+      },
+      {
+        path: 'daily-review',
+        component: () => import('@/views/stock/daily-review'),
+        name: 'DailyReview',
+        meta: { title: 'daily-review', icon: 'daily-review', noCache: true }
+      },
+      {
+        path: 'quant-selection',
+        component: () => import('@/views/stock/quant-selection'),
+        name: 'QuantSelection',
+        meta: { title: 'quant-selection', icon: 'quant-selection', noCache: true }
+      },
+      {
+        path: 'stock-data',
+        component: () => import('@/views/stock/stock-data'),
+        name: 'StockData',
+        meta: { title: 'stock-data', icon: 'stock-data', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/documentation',
     component: Layout,
     children: [

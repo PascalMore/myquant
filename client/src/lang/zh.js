@@ -1,6 +1,11 @@
 export default {
   route: {
     dashboard: '首页',
+    stock: '股票研究',
+    'stock-overview': '市场概览',
+    'daily-review': '每日复盘',
+    'quant-selection': '策略选股',
+    'stock-data': '深度资料',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',

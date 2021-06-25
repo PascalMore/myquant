@@ -1,0 +1,27 @@
+import json
+from app import mongo
+from bson.json_util import dumps
+
+class LabelArchs:
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_labelarch_by_name(arch_name):
+        label_arch = mongo.db.label_arch.find({'label_arch_id': arch_name})
+        if label_arch:
+            return json.loads(dumps(label_arch))
+        return None
+
+class AssetLabels:
+
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_label_by_id(arch_name, aid,  date):
+        asset_label = mongo.db.asset_label.find({'label_arch_id': arch_name, 'asset_id': aid, 'label_date': date})
+        if asset_label:
+            return json.loads(dumps(asset_label))
+        return None

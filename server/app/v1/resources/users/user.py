@@ -34,7 +34,7 @@ class UserList(Resource):
         return Users.insert_user(api.payload), 201
 
 
-@api.route('/<string:id>')
+@api.route('/id/<string:id>')
 class User(Resource):
 
     @api.marshal_with(user)
@@ -45,7 +45,7 @@ class User(Resource):
         """
         Get user by ID
         """
-        user = Users.get_user(id)
+        user = Users.get_user_by_id(id)
         if not user:
             api.abort(404, 'User not found')
         return user
@@ -77,3 +77,18 @@ class User(Resource):
         Updates the user
         """
         return Users.update_user(id, api.payload)
+
+@api.route('/name/<string:name>')
+class User(Resource):
+    @api.marshal_with(user)
+    @api.response(404, 'User not found')
+    @api.doc(params={'name': 'User Name'})
+    @jwt_required
+    def get(self, name):
+        """
+        Get user by Name
+        """
+        user = Users.get_user_by_name(name)
+        if not user:
+            api.abort(404, 'User not found')
+        return user

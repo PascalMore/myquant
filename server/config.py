@@ -45,8 +45,10 @@ class BaseConfig:
     PROPAGATE_EXCEPTIONS = True
 
     try:
-        MONGO_URI = os.environ['MONGO_URI']
-        JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']
+        #MONGO_URI = os.environ['MONGO_URI']
+        #JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']
+        MONGO_URI = 'mongodb://localhost:27017/myq_investment'
+        JWT_SECRET_KEY = 'myquant'
     except KeyError as key:
         logger.critical(f'{key} env var is missing !')
         sys.exit()

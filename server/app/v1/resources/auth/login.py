@@ -9,7 +9,7 @@ api = Namespace('auth', 'Authentication')
 
 @api.route('/login')
 class Login(Resource):
-
+    
     @api.marshal_with(full_token)
     @api.expect(login)
     @api.doc(responses={
@@ -26,7 +26,7 @@ class Login(Resource):
         password = api.payload.get('password')
 
         user = mongo.db.users.find_one({'username': username}, {'_id': 0})
-
+        
         if not user:
             api.abort(404, 'User not found')
 
@@ -38,9 +38,27 @@ class Login(Resource):
         return {
             'access_token': access_token,
             'refresh_token': refresh_token,
-            'name': user.get('name'),
+            'username': user.get('username')
         }
 
+@api.route('/logout')
+class Logout(Resource):
+    @api.expect(acc_token)
+    @api.doc(responses={
+        200: 'Success',
+        400: 'Username or password is a required property',
+        404: 'User not found',
+        401: 'Unauthorized'
+    }, security=None)
+    def post(self):
+        """
+        UnAuthentication endpoint
+        """
+
+        print('{} has logout successfully.'.format(api.payload.get('access_token')))
+        return {
+            'msg': "Logout Successfully."
+        }
 
 @api.route('/refresh')
 class TokenRefresh(Resource):

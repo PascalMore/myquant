@@ -16,8 +16,15 @@ class Users:
         return json.loads(dumps(mongo.db.users.find().sort([('username', 1)])))
 
     @staticmethod
-    def get_user(id):
+    def get_user_by_id(id):
         user = mongo.db.users.find_one({'_id': ObjectId(id)})
+        if user:
+            return json.loads(dumps(user))
+        return None
+    
+    @staticmethod
+    def get_user_by_name(name):
+        user = mongo.db.users.find_one({'username': name})
         if user:
             return json.loads(dumps(user))
         return None
@@ -27,7 +34,7 @@ class Users:
         if mongo.db.users.find_one({'username': user.get('username')}):
             abort(409, 'User already exists')
 
-        user['password'] = encrypt_password(user.get('password', 'changeme'))
+        user['password'] = encrypt_password(user.get('password', 'myquant'))
         if not mongo.db.users.insert_one(user).inserted_id:
             abort(422, 'Cannot create user')
         return json.loads(dumps(user))

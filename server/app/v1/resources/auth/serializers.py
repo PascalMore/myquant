@@ -13,4 +13,5 @@ acc_token = api.model('JWT Access Token', {
 
 full_token = api.inherit('JWT Tokens', acc_token, {
     'refresh_token': fields.String(description='Refresh Token'),
+    'username': fields.String(description='User Name')
 })

@@ -1,35 +1,93 @@
 <template>
-  <div id="app">
-    <div id="map" style="width:100%;height:630px"></div>
+  <div id="mind-map">
+    <div id="map" />
   </div>
 </template>
 
 <script>
-import MindElixir, { E } from "mind-elixir"
+import MindElixir, { E } from 'mind-elixir'
+import { getLabelArch } from '@/api/label-arch'
+import { buildLabelArch, buildStockLabels } from '@/utils/build-label-arch'
 
 export default {
-  name: "StockData",
+  name: 'StockData',
   data() {
     return {
-      ME: null
-    };
+      ME: null,
+      labelArch: null,
+      stockLabels: null
+    }
+  },
+  computed: {
+    lables() {
+      return this.$store.getters.stock_labels
+    }
+  },
+  watch: {
+    lables(val) {
+      this.appendStockLabels(val)
+    }
+  },
+  created() {
+    this.stockLabels = this.$store.getters.stock_labels
   },
   mounted() {
-    this.ME = new MindElixir({
-      el: "#map",
-      direction: MindElixir.LEFT,
-      data: MindElixir.example,
-      draggable: true, // default true
-      contextMenu: true, // default true
-      toolBar: true, // default true
-      nodeMenu: true, // default true
-      keypress: true // default true
-    });
-    this.ME.init();
-    this.ME.example();
+    this.fetchLabelArch('stock_frame').then(() => {
+      this.ME = new MindElixir({
+        el: '#map',
+        direction: MindElixir.SIDE,
+        data: {
+          nodeData: buildLabelArch(this.labelArch),
+          linkData: {}
+        },
+        draggable: true, // default true
+        contextMenu: true, // default true
+        toolBar: true, // default true
+        nodeMenu: true, // default true
+        keypress: true, // default true
+        primaryNodeVerticalGap: 15,
+        primaryNodeHorizontalGap: 15
+        // overflowHidden: true // default false
+      })
+      this.ME.init()
+      this.appendStockLabels(this.stockLabels)
+    })
+  },
+  methods: {
+    async fetchLabelArch(archName) {
+      await getLabelArch(archName).then(response => {
+        this.labelArch = response.data
+      })
+    },
+    appendStockLabels(labels) {
+      if (this.labelArch != null && labels != null) {
+        this.ME = new MindElixir({
+          el: '#map',
+          direction: MindElixir.SIDE,
+          data: {
+            nodeData: buildStockLabels(this.labelArch, labels),
+            linkData: {}
+          },
+          draggable: true, // default true
+          contextMenu: true, // default true
+          toolBar: true, // default true
+          nodeMenu: true, // default true
+          keypress: true, // default true
+          primaryNodeVerticalGap: 15,
+          primaryNodeHorizontalGap: 15
+          // overflowHidden: true // default false
+        })
+        this.ME.init()
+      }
+    }
   }
-};
+}
 </script>
 
 <style>
+  #map {
+    height: 668px;
+    width: 100%;
+    overflow: auto;
+  }
 </style>

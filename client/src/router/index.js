@@ -126,7 +126,8 @@ export const constantRoutes = [
         path: 'index',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', affix: true }
+        // meta: { title: 'documentation', icon: 'documentation', affix: true }
+        meta: { title: 'documentation', icon: 'documentation' }
       }
     ]
   },
@@ -442,6 +443,14 @@ const createRouter = () => new Router({
 })
 
 const router = createRouter()
+
+router.$addRoutes = function(params) {
+  router.matcher = new Router({
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  }).matcher
+  router.addRoutes(params)
+}
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {

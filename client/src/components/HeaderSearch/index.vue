@@ -8,11 +8,11 @@
       filterable
       default-first-option
       remote
-      placeholder="Search"
+      placeholder="输入股票代码或名称"
       class="header-search-select"
       @change="change"
     >
-      <el-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')" />
+      <el-option v-for="item in options" :key="item.code" :value="item" :label="item.title + '(' + item.code + ')'" />
     </el-select>
   </div>
 </template>
@@ -36,6 +36,9 @@ export default {
     }
   },
   computed: {
+    stockCodes() {
+      return JSON.parse(localStorage.getItem('stock_list'))
+    },
     routes() {
       return this.$store.getters.permission_routes
     },
@@ -48,10 +51,12 @@ export default {
   },
   watch: {
     lang() {
-      this.searchPool = this.generateRoutes(this.routes)
+      // this.searchPool = this.generateRoutes(this.routes)
+      this.serachPool = this.generateCodes(this.stockCodes)
     },
     routes() {
-      this.searchPool = this.generateRoutes(this.routes)
+      // this.searchPool = this.generateRoutes(this.routes)
+      this.serachPool = this.generateCodes(this.stockCodes)
     },
     searchPool(list) {
       // Support pinyin search
@@ -69,7 +74,8 @@ export default {
     }
   },
   mounted() {
-    this.searchPool = this.generateRoutes(this.routes)
+    // this.searchPool = this.generateRoutes(this.routes)
+    this.searchPool = this.generateCodes(this.stockCodes)
   },
   methods: {
     async addPinyinField(list) {
@@ -101,7 +107,7 @@ export default {
       this.show = false
     },
     change(val) {
-      this.$router.push(val.path)
+      this.$store.dispatch('stock/fetchStockLabels', val)
       this.search = ''
       this.options = []
       this.$nextTick(() => {
@@ -111,7 +117,7 @@ export default {
     initFuse(list) {
       this.fuse = new Fuse(list, {
         shouldSort: true,
-        threshold: 0.4,
+        threshold: 0.0,
         location: 0,
         distance: 100,
         maxPatternLength: 32,
@@ -123,10 +129,20 @@ export default {
           name: 'pinyinTitle',
           weight: 0.3
         }, {
-          name: 'path',
-          weight: 0.3
+          name: 'code',
+          weight: 0.7
         }]
       })
+    },
+    generateCodes(codes) {
+      const res = []
+      for (const stk of codes) {
+        res.push({
+          code: stk.code,
+          title: stk.name
+        })
+      }
+      return res
     },
     // Filter out the routes that can be displayed in the sidebar
     // And generate the internationalized title

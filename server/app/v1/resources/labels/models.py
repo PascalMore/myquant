@@ -21,7 +21,13 @@ class AssetLabels:
 
     @staticmethod
     def get_label_by_id(arch_name, aid,  date):
-        asset_label = mongo.db.asset_label.find({'label_arch_id': arch_name, 'asset_id': aid, 'label_date': date})
-        if asset_label:
-            return json.loads(dumps(asset_label))
-        return None
+        find_label_date = list(mongo.db.asset_label.find({'label_arch_id': arch_name, 'asset_id': aid, 'label_date': {'$lte': date}}).sort([('label_date', -1)]).limit(1))
+        if len(find_label_date) > 0:
+            latest = list(find_label_date)[0]['label_date']
+            asset_label = mongo.db.asset_label.find({'label_arch_id': arch_name, 'asset_id': aid, 'label_date': latest})
+            if asset_label:
+                return json.loads(dumps(asset_label))
+            else:
+                return None
+        else:
+            return None

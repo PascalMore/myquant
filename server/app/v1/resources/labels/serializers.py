@@ -1,7 +1,7 @@
 from app.v1 import api
 from flask_restplus import fields
 
-label_arch = api.model('LabelArch', {
+label_arch = api.model('Label Arch', {
     'id': fields.String(readonly=True, description='ID', attribute='_id.$oid'),
     'label_arch_id': fields.String(required=True, description='The Label Arch ID'),
     'label_id': fields.String(required=True, description='The Label ID'),
@@ -12,7 +12,7 @@ label_arch = api.model('LabelArch', {
     'user': fields.String(required=False, description='Label Arch Owner', default='MYQ')
 })
 
-asset_label = api.model('AssetLabel', {
+asset_label = api.model('Asset Label', {
     'id': fields.String(readonly=True, description='ID', attribute='_id.$oid'),
     'asset_id': fields.String(required=True, description='Asset ID'),
     'label_arch_id': fields.String(required=True, description='The Label Arch ID'),

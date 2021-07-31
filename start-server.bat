@@ -1,0 +1,1 @@
+start D:/Applications/anaconda3/envs/myquant/python.exe -u d:/Workspace/Quant/bin/core/myquant/server/run.py >> daily_server.log

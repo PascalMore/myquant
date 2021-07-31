@@ -104,7 +104,7 @@ import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'StrategySelection',
+  name: 'QuantSelection',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -130,7 +130,7 @@ export default {
         exe_date: undefined,
         sort: ''
       },
-      strategyList: ['BottomLaunch'],
+      strategyList: ['BottomLaunch', 'TrendBack'],
       sortOptions: [{ label: 'Date Ascending', key: '+date' }, { label: 'Date Descending', key: '-date' }],
       code_name: null,
       temp: {
@@ -167,7 +167,7 @@ export default {
       fetchStrategyExecutions(this.listQuery).then(response => {
         var res = []
         var cnt = 1
-        if (response.data instanceof Array) {
+        if (Object.prototype.toString.call(response.data) === '[object Array]') {
           response.data.forEach((d, i, arr1) => {
             d['strategy_res'].forEach((dd, ii, arr2) => {
               var tmp = dd

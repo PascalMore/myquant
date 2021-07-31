@@ -108,7 +108,7 @@ export const constantRoutes = [
         path: 'quant-selection',
         component: () => import('@/views/stock/quant-selection'),
         name: 'QuantSelection',
-        meta: { title: 'quant-selection', icon: 'quant-selection', noCache: true }
+        meta: { title: 'quant-selection', icon: 'quant-selection', noCache: false }
       },
       {
         path: 'stock-data',

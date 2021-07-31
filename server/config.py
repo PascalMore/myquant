@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import datetime
 from logging.config import dictConfig
 
 logger = logging.getLogger(__name__)
@@ -43,6 +44,7 @@ class BaseConfig:
     ERROR_INCLUDE_MESSAGE = False
     RESTPLUS_MASK_SWAGGER = False
     PROPAGATE_EXCEPTIONS = True
+    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=180)
 
     try:
         #MONGO_URI = os.environ['MONGO_URI']

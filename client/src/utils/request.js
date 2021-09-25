@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 20000 // request timeout
+  timeout: 200000 // request timeout
 })
 
 // request interceptor
@@ -73,12 +73,25 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log(error) // for debug
     Message({
       message: error.message,
       type: 'error',
       duration: 5 * 1000
     })
+    // 400: Username or password is a required property; 403: User not found; 401: Unauthorized;
+    if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
+        // to re-login
+        MessageBox.confirm('登陆失效，请重新登陆', '登陆提示', {
+          confirmButtonText: '重新登陆',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          store.dispatch('user/resetToken').then(() => {
+            location.reload()
+          })
+        })
+    }
     return Promise.reject(error)
   }
 )

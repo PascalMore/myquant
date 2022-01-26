@@ -29,7 +29,14 @@ export default {
     }
   },
   created() {
-    this.stockLabels = this.$store.getters.stock_labels
+    // 获取参数
+    if (typeof this.$route.query.code === 'undefined') {
+        // 调试提示
+        console.log('未传入股票代码')
+        this.stockLabels = this.$store.getters.stock_labels
+    } else {
+        this.$store.dispatch('stock/fetchStockLabels', this.$route.query)
+    }
   },
   mounted() {
     this.fetchLabelArch('stock_frame').then(() => {

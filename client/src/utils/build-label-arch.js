@@ -1,3 +1,5 @@
+import store from '@/store'
+
 export function buildLabelArch(data) {
   var nodeMapper = {}
   var nodeData = null
@@ -31,8 +33,17 @@ export function buildStockLabels(arch, labels) {
       nodeMapper[e['label_id']] = [{ label_id: e['id'], label_name: e['value'] }]
     }
   })
-  // 设置根节点的显示为股票代码
-  nodeMapper['nan'][0].label_name = labels[0].asset_id
+  // console.log(store.getters)
+  if (typeof labels[0] !== 'undefined') {
+    // 设置根节点的显示为股票代码
+    // console.log(labels[0])
+    for (const stk of JSON.parse(localStorage.getItem('stock_list'))) {
+        if (stk.code === labels[0].asset_id) {
+            nodeMapper['nan'][0].label_name = stk.name
+            break
+        }
+    }
+  }
   nodeData = buildHelper(nodeMapper['nan'][0], nodeMapper, 1)
   return nodeData
 }

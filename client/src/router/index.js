@@ -99,19 +99,35 @@ export const constantRoutes = [
         meta: { title: 'stock-overview', icon: 'stock-overview', noCache: true }
       },
       {
-        path: 'daily-review',
-        component: () => import('@/views/stock/daily-review'),
-        name: 'DailyReview',
-        meta: { title: 'daily-review', icon: 'daily-review', noCache: true }
+        path: '/daily-review',
+        component:() => import('@/views/stock/daily-review/index'),
+        redirect: '/daily-review/list',
+        meta: { title: 'daily-review', icon: 'daily-review'},
+        children: [
+          {
+            //hidden: true,
+            path: 'list',
+            component: () => import('@/views/stock/daily-review/list'),
+            name: 'ReviewList',
+            meta: { title: 'review-list', icon: 'list'}
+          },
+          {
+            //hidden: true,
+            path: 'create',
+            component: () => import('@/views/stock/daily-review/create'),
+            name: 'CreateReview',
+            meta: { title: 'create-review', icon: 'edit' }
+          }
+        ]
       },
       {
-        path: 'quant-selection',
+        path: '/stock/quant-selection',
         component: () => import('@/views/stock/quant-selection'),
         name: 'QuantSelection',
         meta: { title: 'quant-selection', icon: 'quant-selection', noCache: false }
       },
       {
-        path: 'stock-data',
+        path: '/stock/stock-data',
         component: () => import('@/views/stock/stock-data'),
         name: 'StockData',
         meta: { title: 'stock-data', icon: 'stock-data', noCache: true }

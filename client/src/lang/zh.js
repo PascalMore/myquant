@@ -4,6 +4,8 @@ export default {
     stock: '股票研究',
     'stock-overview': '市场概览',
     'daily-review': '每日复盘',
+    'create-review': '创建复盘',
+    'review-list': '过往复盘',
     'quant-selection': '策略选股',
     'stock-data': '深度资料',
     documentation: '文档',
@@ -85,6 +87,9 @@ export default {
     any: '随便填',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
+  },
+  stock: {
+      createDiary: '创建日记'
   },
   documentation: {
     documentation: '文档',

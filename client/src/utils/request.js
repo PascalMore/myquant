@@ -74,11 +74,14 @@ service.interceptors.response.use(
   },
   error => {
     console.log(error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // 如果是404 不需要进行界面提示
+    if (error.response.status !== 404) {
+      Message({
+        message: error.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }      
     // 400: Username or password is a required property; 403: User not found; 401: Unauthorized;
     if (error.response.status === 400 || error.response.status === 401 || error.response.status === 403) {
         // to re-login

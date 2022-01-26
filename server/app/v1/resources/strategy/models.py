@@ -12,13 +12,22 @@ class StrategyExecutions:
         pass
 
     @staticmethod
-    def get_strategy_execution(strategy_id, exe_date):
+    def get_strategy_execution(strategy_id, exe_date, options):
         query = {}
+        page = 1
+        limit = 20
+        sort = -1
         if strategy_id is not None and len(strategy_id) > 0:
             query['strategy_id'] = strategy_id
         if exe_date is not None and len(exe_date) > 0:
             query['exe_date'] = {'$lte': exe_date}
-        
+        if options['page'] is not None:
+            page = options['page']
+        if options['limit'] is not None:
+            limit = options['limit']
+        if options['sort'] is not None:
+            sort = 1 if options['sort'] == '+' else -1
+
         query_res = list(mongo.db.strategy_execution.find(query).sort([('exe_date', -1)]))
         if len(query_res) > 0:
             cur_exe_date = query_res[0]['exe_date']

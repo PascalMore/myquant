@@ -25,6 +25,7 @@ from .resources.labels.label_arch import api as label_arch_ns
 from .resources.labels.asset_label import api as asset_label_ns
 from .resources.stocks.stock import api as stock_list_ns
 from .resources.strategy.strategy_execution import api as strategy_ns
+from .resources.diary.article import api as article_ns
 
 
 api.add_namespace(auth_ns)
@@ -33,3 +34,4 @@ api.add_namespace(label_arch_ns)
 api.add_namespace(asset_label_ns)
 api.add_namespace(stock_list_ns)
 api.add_namespace(strategy_ns)
+api.add_namespace(article_ns)

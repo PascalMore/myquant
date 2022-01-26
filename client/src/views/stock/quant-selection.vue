@@ -48,7 +48,7 @@
       </el-table-column>
       <el-table-column label="股票代码" width="80px">
         <template slot-scope="{row}">
-          <span>{{ row.asset_id }}</span>
+          <router-link :to="{ path:'/stock/stock-data', query: {code: row.asset_id}}">{{ row.asset_id }}</router-link>
         </template>
       </el-table-column>
       <el-table-column label="股票名称" align="center" width="95">
@@ -130,7 +130,7 @@ export default {
         exe_date: undefined,
         sort: ''
       },
-      strategyList: ['BottomLaunch', 'TrendBack'],
+      strategyList: ['BottomLaunch', 'TrendBack', 'ShockBottom'],
       sortOptions: [{ label: 'Date Ascending', key: '+date' }, { label: 'Date Descending', key: '-date' }],
       code_name: null,
       temp: {

@@ -19,6 +19,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       fetchStockList().then(response => {
         const { data } = response
+        //console.log('fetchStockList')
+        //console.log(data)
         commit('SET_STOCK_LIST', data)
         // 保存股票列表到localStorage
         window.localStorage.setItem('stock_list', JSON.stringify(data))

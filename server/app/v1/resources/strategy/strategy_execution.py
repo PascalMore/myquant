@@ -8,6 +8,9 @@ api = Namespace('strategy', 'Strategy Execution Endpoint')
 parser = reqparse.RequestParser()
 parser.add_argument('strategy_id', type=str, required=False, help='Strategy ID')
 parser.add_argument('exe_date', type=str, required=False, help='Execution Date')
+parser.add_argument('page', type=int, required=False, help='Page Number')
+parser.add_argument('limit', type=int, required=False, help='Page Limit')
+parser.add_argument('sort', type=str, required=False, help='Sort')
 
 @api.route('/execution/')
 class StrategyExecution(Resource):
@@ -21,7 +24,7 @@ class StrategyExecution(Resource):
         Get strategy execution by strategy id of query date
         """
         args = parser.parse_args()
-        strategy_execution = StrategyExecutions.get_strategy_execution(args['strategy_id'], args['exe_date'])
+        strategy_execution = StrategyExecutions.get_strategy_execution(args['strategy_id'], args['exe_date'], args)
         if not strategy_execution:
             api.abort(404, 'Strategy execution not found')
         return strategy_execution

@@ -20,3 +20,18 @@ class LabelArch(Resource):
         if not label_arch:
             api.abort(404, 'Label arch not found')
         return label_arch
+
+@api.route('/list/<string:arch_type>')
+class LabelArch(Resource):
+    @api.marshal_with(label_arch)
+    @api.response(404, 'Label arch not found')
+    @api.doc(params={'arch_type': 'Label arch Type'})
+    @jwt_required
+    def get(self, arch_type):
+        """
+        Get all arch by type
+        """
+        label_arch = LabelArchs.get_all_labelarch(arch_type)
+        if not label_arch:
+            api.abort(404, 'Label arch not found')
+        return label_arch

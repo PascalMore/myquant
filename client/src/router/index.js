@@ -94,7 +94,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        component: () => import('@/views/stock/index'),
+        component: () => import('@/views/stock/market-overview/index'),
         name: 'StockOverview',
         meta: { title: 'stock-overview', icon: 'stock-overview', noCache: true }
       },
@@ -131,6 +131,12 @@ export const constantRoutes = [
         component: () => import('@/views/stock/stock-data'),
         name: 'StockData',
         meta: { title: 'stock-data', icon: 'stock-data', noCache: true }
+      },
+      {
+        path: '/stock/industy_chain',
+        component: () => import('@/views/stock/industry-chain'),
+        name: 'IndustryChain',
+        meta: { title: 'industry-chain', icon: 'industry_chain', noCache: true }
       }
     ]
   },

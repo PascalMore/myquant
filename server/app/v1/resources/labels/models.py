@@ -13,6 +13,12 @@ class LabelArchs:
         if label_arch:
             return json.loads(dumps(label_arch))
         return None
+    
+    @staticmethod
+    def get_all_labelarch(arch_type):
+        label_arch = mongo.db.label_arch.find({'label_arch_type': arch_type, 'parent_id': ""})
+        if label_arch:
+            return json.loads(dumps(label_arch))
 
 class AssetLabels:
 

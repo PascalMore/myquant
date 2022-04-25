@@ -8,6 +8,7 @@ export default {
     'review-list': '过往复盘',
     'quant-selection': '策略选股',
     'stock-data': '深度资料',
+    'industry-chain': '产业链',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',

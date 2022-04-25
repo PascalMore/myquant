@@ -30,6 +30,13 @@ export function getLabelArch(arch_name) {
   })
 }
 
+export function getAllIndustryChain(arch_type){
+  return request({
+    url: '/label_arch/list/' + arch_type,
+    method: 'get'
+  })
+}
+
 export function getStockLabels(arch_name = 'stock_frame', code, date = new Date().Format('yyyy-MM-dd')) {
   return request({
     url: '/asset_label/arch/' + arch_name + '/assetid/' + code + '/date/' + date,

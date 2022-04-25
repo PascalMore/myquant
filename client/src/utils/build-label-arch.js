@@ -11,7 +11,7 @@ export function buildLabelArch(data) {
       nodeMapper[e['parent_id']] = [e]
     }
   })
-  nodeData = buildHelper(nodeMapper['nan'][0], nodeMapper, 1)
+  nodeData = buildHelper(nodeMapper[''][0], nodeMapper, 1)
   return nodeData
 }
 
@@ -39,12 +39,12 @@ export function buildStockLabels(arch, labels) {
     // console.log(labels[0])
     for (const stk of JSON.parse(localStorage.getItem('stock_list'))) {
         if (stk.code === labels[0].asset_id) {
-            nodeMapper['nan'][0].label_name = stk.name
+            nodeMapper[''][0].label_name = stk.name
             break
         }
     }
   }
-  nodeData = buildHelper(nodeMapper['nan'][0], nodeMapper, 1)
+  nodeData = buildHelper(nodeMapper[''][0], nodeMapper, 1)
   return nodeData
 }
 
@@ -52,6 +52,10 @@ export function buildHelper(cur, nodeMapper, level) {
   var nodeData = {}
   nodeData['id'] = cur.label_id
   nodeData['topic'] = cur.label_name
+  // 2022/4/25更新： 增加tags
+  if (Object.prototype.hasOwnProperty.call(cur, "tag") && cur.tag != "") {
+    nodeData['tags'] = cur.tag.split( ',' )
+  }
   if (level <= 3) {
     nodeData['expanded'] = true
   } else {

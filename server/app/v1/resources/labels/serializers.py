@@ -9,7 +9,9 @@ label_arch = api.model('Label Arch', {
     'parent_id': fields.String(required=True, description='Parent ID Of The Label'),
     'path': fields.List(fields.String, required=True, description='Label Path Of The Arch'),
     'update_timestamp': fields.Raw(required=False, description='Update TimeStamp'),
-    'user': fields.String(required=False, description='Label Arch Owner', default='MYQ')
+    'user': fields.String(required=False, description='Label Arch Owner', default='MYQ'),
+    'label_arch_type': fields.String(required=True, description='Label Arch Type'),
+    'tag': fields.String(required=True, description='Tag')
 })
 
 asset_label = api.model('Asset Label', {
@@ -20,5 +22,6 @@ asset_label = api.model('Asset Label', {
     'label_id': fields.String(required=True, description='The Label ID'),
     'value': fields.String(required=True, description='The Label Value'),
     'user': fields.String(required=False, description='Label Arch Owner', default='MYQ'),
-    'update_timestamp': fields.Raw(required=False, description='Update TimeStamp')
+    'update_timestamp': fields.Raw(required=False, description='Update TimeStamp'),
+    'tag': fields.String(required=True, description='Tag')
 })

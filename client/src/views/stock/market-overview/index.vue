@@ -2,9 +2,9 @@
   <div class="dashboard-editor-container">
     <!--<github-corner class="github-corner" /> -->
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+    <panel-group @handleSetLineChartData="handleSetLineChartData" @getMarketTemper="getMarketTemper" />
 
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+    <el-row style="background:#fff;padding:8px 8px 0;margin-bottom:32px;">
       <line-chart :chart-data="lineChartData" />
     </el-row>
 
@@ -93,6 +93,9 @@ export default {
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    getMarketTemper() {
+       return 256.213
     }
   }
 }
@@ -100,7 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-editor-container {
-  padding: 32px;
+  padding: 8px;
   background-color: rgb(240, 242, 245);
   position: relative;
 
@@ -113,14 +116,14 @@ export default {
 
   .chart-wrapper {
     background: #fff;
-    padding: 16px 16px 0;
+    padding: 4px 4px 0;
     margin-bottom: 32px;
   }
 }
 
 @media (max-width:1024px) {
   .chart-wrapper {
-    padding: 8px;
+    padding: 4px;
   }
 }
 </style>

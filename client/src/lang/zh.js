@@ -9,6 +9,7 @@ export default {
     'quant-selection': '策略选股',
     'stock-data': '深度资料',
     'industry-chain': '产业链',
+    'stock-pool': '股票池',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',

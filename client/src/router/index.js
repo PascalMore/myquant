@@ -127,6 +127,12 @@ export const constantRoutes = [
         meta: { title: 'quant-selection', icon: 'quant-selection', noCache: false }
       },
       {
+        path: '/stock/stock-pool',
+        component: () => import('@/views/stock/stock-pool/index'),
+        name: 'StockPool',
+        meta: { title: 'stock-pool', icon: 'stock-pool', noCache: false }
+      },
+      {
         path: '/stock/stock-data',
         component: () => import('@/views/stock/stock-data'),
         name: 'StockData',

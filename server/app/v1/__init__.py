@@ -27,6 +27,7 @@ from .resources.stocks.stock import api as stock_list_ns
 from .resources.strategy.strategy_execution import api as strategy_ns
 from .resources.diary.article import api as article_ns
 from .resources.indicator.indicator import api as indicator_ns
+from .resources.stockpool.stockpool import api as stock_pool_ns
 
 
 api.add_namespace(auth_ns)
@@ -37,3 +38,4 @@ api.add_namespace(stock_list_ns)
 api.add_namespace(strategy_ns)
 api.add_namespace(article_ns)
 api.add_namespace(indicator_ns)
+api.add_namespace(stock_pool_ns)

@@ -36,7 +36,8 @@ export default {
       options: [],
       mapping: {
         "industry_electric": "电气设备",
-        "industry_tmt": "TMT"
+        "industry_tmt": "TMT",
+        "industry_metal": "有色金属"
       }
     }
   },

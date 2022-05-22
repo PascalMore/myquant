@@ -1,6 +1,6 @@
 <template>
-  <div class="app-container">
-    <div class="filter-container">
+  <div class="app-container" style='padding: 12px;' >
+    <div style='padding-bottom: 2px;' class="filter-container">
       <el-select v-model="listQuery.strategy_id" placeholder="策略ID" clearable style="width: 150px" class="filter-item">
         <el-option v-for="item in strategyList" :key="item" :label="item" :value="item" />
       </el-select>
@@ -19,7 +19,7 @@
     <el-table
       :key="tableKey"
       v-loading="listLoading"
-      :data="list"
+      :data="pagedList"
       border
       fit
       highlight-current-row
@@ -58,7 +58,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination style="margin-top:12px; padding-top: 8px;padding-bottom: 2px" v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="pageShow" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
@@ -121,11 +121,12 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      pagedList: null,
       total: 0,
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20,
+        limit: 10,
         strategy_id: undefined,
         exe_date: undefined,
         sort: ''
@@ -162,6 +163,14 @@ export default {
     this.getList()
   },
   methods: {
+    pageShow() {
+      // 如果list为空的时候，获取数据
+      if(!this.list && typeof(this.list)!="undefined" && this.list != 0) {
+        this.getList()
+      } else {
+        this.pagedList = this.list.slice((this.listQuery.page - 1) * this.listQuery.limit, this.listQuery.page * this.listQuery.limit)
+      }
+    },
     getList() {
       this.listLoading = true
       fetchStrategyExecutions(this.listQuery).then(response => {
@@ -193,6 +202,8 @@ export default {
 
         this.list = res
         this.total = this.list.length
+        // 分页展示
+        this.pageShow()
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false

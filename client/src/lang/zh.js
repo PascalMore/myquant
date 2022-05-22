@@ -2,6 +2,7 @@ export default {
   route: {
     dashboard: '首页',
     stock: '股票研究',
+    stockName: '股票名称',
     'stock-overview': '市场概览',
     'daily-review': '每日复盘',
     'create-review': '创建复盘',

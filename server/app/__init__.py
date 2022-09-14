@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 mongo = PyMongo()
 mongo_quantaxis = PyMongo()
+mongo_fundamental = PyMongo()
 jwt = JWTManager()
 
 
@@ -18,6 +19,7 @@ def create_app():
 
     mongo.init_app(app)
     mongo_quantaxis.init_app(app, "mongodb://localhost:27017/quantaxis")
+    mongo_fundamental.init_app(app, "mongodb://localhost:27017/stock_fundamental")
     jwt.init_app(app)
 
     from app.v1 import v1_blueprint

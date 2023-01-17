@@ -4,6 +4,7 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 from dateutil.relativedelta import relativedelta
 import datetime
+import pandas as pd
 
 def trans(s):
     if 'NaN' == s:
@@ -62,6 +63,12 @@ class StockNoticeAdvModel:
 
         print(query)
         query_res = list(mongo_fundamental.db.announce_pre.find(query).sort([('notice_date', -1)]))
+        df_res = pd.DataFrame.from_dict(query_res)
+        #这里需要对于重复数据去重 stock_id+rpt_date+predict_finance+ 有多个notcie_date，排序最新的
+        df_res = df_res.sort_values('notice_date', ascending=False).groupby(['stock_id', 'rpt_date', 'predict_finance'], as_index=False).first().sort_values('notice_date', ascending=False)
+        #print(df_res)
+        query_res = df_res.to_dict('records')
+        #print(query_res)
         if len(query_res) > 0:
             #cur_notice_date = query_res[0]['notice_date']
             #notice_res = list([x for x in query_res if x['notice_date'] == cur_notice_date])

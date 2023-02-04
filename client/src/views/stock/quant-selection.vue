@@ -325,13 +325,14 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const tHeader = ['时间', '策略名称', '作者', '股票代码', '股票名称']
+        const tFilename = '策略选股'
+        const filterVal = ['exe_date', 'strategy_id', 'author', 'asset_id', 'asset_name']
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: 'table-list'
+          filename: tFilename
         })
         this.downloadLoading = false
       })

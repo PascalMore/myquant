@@ -4,6 +4,9 @@
   <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="pageShow">
         {{ $t('table.search') }}
   </el-button>
+  <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
+        {{ $t('table.export') }}
+  </el-button>
   <el-table v-loading="loading"  element-loading-text="请给我点时间！" :data="pagedList" border fit highlight-current-row style="width: 100%">
     <el-table-column :label="$t('table.id')" prop="id" sortable="custom" align="center" width="80" :class-name="getSortClass('id')">
         <template slot-scope="{row}">
@@ -40,6 +43,7 @@
 import { fetchStockPool } from '@/api/stock-pool'
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { parseTime } from '@/utils'
 
 export default {
   directives: { waves },
@@ -74,7 +78,8 @@ export default {
         sort: '+id'
       },
       loading: true,
-      code_name: null
+      code_name: null,
+      downloadLoading: false
     }
   },
   created() {
@@ -125,6 +130,30 @@ export default {
         this.pageShow()
         this.loading = false
       })
+    },
+    handleDownload() {
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['股票代码', '股票名称', '入池时间', '入池类型']
+        const tFilename = '股票池'
+        const filterVal = ['asset_id', 'asset_name', 'import_date', 'pool_type']
+        const data = this.formatJson(filterVal)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: tFilename
+        })
+        this.downloadLoading = false
+      })
+    },
+    formatJson(filterVal) {
+      return this.list.map(v => filterVal.map(j => {
+        if (j === 'timestamp') {
+          return parseTime(v[j])
+        } else {
+          return v[j]
+        }
+      }))
     },
     getSortClass: function(key) {
       const sort = this.listQuery.sort

@@ -8,6 +8,9 @@
       <line-chart :chart-data="lineChartData" />
     </el-row> -->
     <el-row style="padding-right:8px;margin-bottom:20px;">
+      <AssetYield />
+    </el-row>
+    <el-row style="padding-right:8px;margin-bottom:20px;">
       <transaction-table />
     </el-row>
 
@@ -51,6 +54,7 @@ import RaddarChart from './components/RaddarChart'
 import PieChart from './components/PieChart'
 import BarChart from './components/BarChart'
 import TransactionTable from './components/TransactionTable'
+import AssetYield from './components/AssetYield'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
@@ -82,6 +86,7 @@ export default {
     RaddarChart,
     PieChart,
     BarChart,
+    AssetYield,
     TransactionTable,
     TodoList,
     BoxCard

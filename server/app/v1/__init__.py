@@ -29,6 +29,7 @@ from .resources.diary.article import api as article_ns
 from .resources.indicator.indicator import api as indicator_ns
 from .resources.stockpool.stockpool import api as stock_pool_ns
 from .resources.stocknotice.stocknotice_adv import api as stock_notice_adv_ns
+from .resources.index.index import api as index_ns
 
 
 api.add_namespace(auth_ns)
@@ -41,3 +42,4 @@ api.add_namespace(article_ns)
 api.add_namespace(indicator_ns)
 api.add_namespace(stock_pool_ns)
 api.add_namespace(stock_notice_adv_ns)
+api.add_namespace(index_ns)

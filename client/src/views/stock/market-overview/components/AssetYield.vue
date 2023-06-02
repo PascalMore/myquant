@@ -1,27 +1,18 @@
 <template>
   <div style='padding: 0px;' >
-    <!-- <div style='padding-bottom: 2px;' class="filter-container">
-      <el-date-picker v-model="listQuery.notice_date" type="date" placeholder="公告日期" value-format="yyyyMMdd" class="filter-item" style="width: 150px" />
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        {{ $t('table.search') }}
-      </el-button>
-      <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-        {{ $t('table.export') }}
-      </el-button>
-    </div> -->
     <div>全市场收益率概览</div>
-    <el-table :data="list" :row-style="{height: '14px'}"  v-loading="listLoading" style="width: 100%;padding-top: 8px;font-size:14px">
-        <el-table-column label="最新日期" width="93" align="center">
+    <el-table height="670px" :data="list" :row-style="{height: '14px'}"  v-loading="listLoading" style="width:100%;font-size:14px">
+        <el-table-column fixed label="最新日期" width="93" align="center">
         <template slot-scope="{row}">
             {{ row.calc_date}}
         </template>
         </el-table-column>
-        <el-table-column label="指数代码" width="77">
+        <el-table-column fixed label="指数代码" width="77">
         <template slot-scope="{row}">
             {{ row.index_id}}
         </template>
         </el-table-column>
-        <el-table-column label="指数名称" width="80" align="center">
+        <el-table-column fixed label="指数名称" width="80" align="center">
         <template slot-scope="{row}">
             {{ row.index_name }}
         </template>
@@ -134,7 +125,7 @@ export default {
       code_name: null,
       table_head_m: [],
       table_head_y: [],
-      index_ids: ['000300','000852', '399006', '000688','159920','513130','513500','513000','164824','513080','513030','511260','511030'],
+      index_ids: ['000300','000852', '399006', '000688','159920','513130','513500','513000','164824','513080','513030','511260','511030','518880','162411','159981','159980'],
       index_name: {
         '000300': '沪深300',
         '000852': '中证1000',
@@ -149,7 +140,11 @@ export default {
         '513080': '法国',
         '513030': '德国',
         '511260': '利率债',
-        '511030': '信用债'
+        '511030': '信用债',
+        '518880': '黄金',
+        '162411': '原油',
+        '159981': '能源化工',
+        '159980': '有色金属'
       }
     }
   },
@@ -237,3 +232,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.show_table {
+    width: 100%;
+    height: 670px;
+    padding-top: 8px;
+    font-size:14px;
+    overflow: auto;
+}
+</style>

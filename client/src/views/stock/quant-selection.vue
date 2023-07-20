@@ -131,7 +131,7 @@ export default {
         exe_date: undefined,
         sort: ''
       },
-      strategyList: ['BottomLaunch', 'TrendBack', 'ShockBottom'],
+      strategyList: ['BottomLaunch', 'TrendBack', 'ShockBottom', 'OppositeTrendStrong', 'OppositeTrendWeak'],
       sortOptions: [{ label: 'Date Ascending', key: '+date' }, { label: 'Date Descending', key: '-date' }],
       code_name: null,
       temp: {

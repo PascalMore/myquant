@@ -161,4 +161,4 @@ class IndexYieldModel:
         print(res)
         return  json.loads(dumps(res.to_dict(orient='records')), parse_constant=trans)
 
-#IndexYieldModel.get_index_yields("000300,000852,399006,000688,159920,513130,513500,513300", "2023-05-25", "m_1,m_2,m_3,m_4,m_5,cur_td,cur_week,cur_mon,cur_quart,cur_ytd,y_2022,y_2021,last_1w,last_2w,last_1m,last_2m,last_3m,last_6m,last_1y")
+#IndexYieldModel.get_index_yields("000300,000852,399006,000688,159920,513130,513500,513300,T002", "2023-05-25", "m_1,m_2,m_3,m_4,m_5,cur_td,cur_week,cur_mon,cur_quart,cur_ytd,y_2022,y_2021,last_1w,last_2w,last_1m,last_2m,last_3m,last_6m,last_1y")

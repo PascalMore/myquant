@@ -8,7 +8,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('ind', type=str, required=False, help='Indicator ID')
 parser.add_argument('date', type=str, required=False, help='Indicator Date')
 
-#2023/11/21解决浏览器登录后还是反复出现401的问题，api route不需要再设置/了就是值为空
+#2023/11/21解决浏览器登录后还是反复出现401的问题，api.route不需要再设置"/",就是值为''
 @api.route('')
 class Indicator(Resource):
     @api.marshal_list_with(indicator)

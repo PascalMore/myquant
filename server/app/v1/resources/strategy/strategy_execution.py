@@ -4,7 +4,7 @@ from .serializers import strategy_execution
 from .models import StrategyExecutions
 
 
-api = Namespace('strategy', 'Strategy Execution Endpoint')
+api = Namespace('strategy', 'Strategy Endpoint')
 parser = reqparse.RequestParser()
 parser.add_argument('strategy_id', type=str, required=False, help='Strategy ID')
 parser.add_argument('exe_date', type=str, required=False, help='Execution Date')
@@ -12,7 +12,7 @@ parser.add_argument('page', type=int, required=False, help='Page Number')
 parser.add_argument('limit', type=int, required=False, help='Page Limit')
 parser.add_argument('sort', type=str, required=False, help='Sort')
 
-@api.route('/execution/')
+@api.route('/execution')
 class StrategyExecution(Resource):
     @api.marshal_with(strategy_execution)
     @api.response(404, 'Strategy execution not found')

@@ -6,7 +6,7 @@ from .models import AssetLabels
 
 api = Namespace('asset_label', 'Asset Label Endpoint')
 
-@api.route('/arch/<string:arch_name>/assetid/<string:aid>/date/<string:date>/')
+@api.route('/arch/<string:arch_name>/assetid/<string:aid>/date/<string:date>')
 class LabelArch(Resource):
     @api.marshal_with(asset_label)
     @api.response(404, 'Asset label not found')

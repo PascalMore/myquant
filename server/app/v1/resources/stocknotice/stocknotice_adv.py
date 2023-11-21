@@ -13,8 +13,8 @@ parser.add_argument('page', type=int, required=False, help='Page Number')
 parser.add_argument('limit', type=int, required=False, help='Page Limit')
 parser.add_argument('sort', type=str, required=False, help='Sort')
 
-
-@api.route('/')
+#2023/11/21解决浏览器登录后还是反复出现401的问题，api.route不需要再设置"/",就是值为''
+@api.route('')
 class StockNoticeAdv(Resource):
     @api.marshal_with(stock_notice_adv)
     @api.response(404, 'Stock notice in advance not found')

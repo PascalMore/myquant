@@ -3,10 +3,10 @@ from flask_jwt_extended import jwt_required
 from .serializers import stock_list
 from .models import StockList
 
-api = Namespace('stock_list', 'Stock List')
+api = Namespace('stock', 'Stock')
 
 
-@api.route('/')
+@api.route('/stock_list')
 class Stock(Resource):
 
     @api.marshal_list_with(stock_list)
